@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--
+  Darshil Gohel, portfolio
+  Static site: no build step. Deploys on Vercel straight from the repo root.
+
+  Things to replace before going live (search for "TODO"):
+  1. Email address in the contact section
+  2. Role descriptions in Experience (currently short drafts)
+  3. Your CV at assets/Darshil-Gohel-CV.pdf (the Download CV button points there)
+  4. assets/profile.jpg, assets/koloril.jpg, assets/streakfolio.jpg with full-resolution originals
+  5. og:url and og:image once the site has a domain
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darshil Gohel, UX and product designer</title>
+<meta name="description" content="UX and product designer with 5+ years of experience turning user research into products people love. Based in Gujarat, India, working remotely.">
+<meta property="og:title" content="Darshil Gohel, UX and product designer">
+<meta property="og:description" content="Turning user research into products people love.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#5B21B6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235B21B6'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='white'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #F6F1FA;
+  --border: #E8DDF0;
+  --plum: #5B21B6;
+  --plum-deep: #47198F;
+  --ink: #1A1023;
+  --muted: #6A6072;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --wrap: 880px;
+  --side: 360px;
+  --nav-h: 68px;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+p { margin: 0 0 1em; }
+h1, h2, h3 { font-family: var(--display); margin: 0; letter-spacing: -0.02em; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 48px; }
+
+/* Page frame: full-height profile panel on the left, divided from the content by a line */
+.page {
+  display: grid;
+  grid-template-columns: var(--side) minmax(0, 1fr);
+  grid-template-areas: "side nav" "side main" "side foot";
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+.site-nav { grid-area: nav; }
+.profile { grid-area: side; }
+.page > main { grid-area: main; }
+.site-footer { grid-area: foot; }
+
+/* Nav */
+.site-nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.site-nav .wrap { height: var(--nav-h); display: flex; align-items: center; gap: 24px; }
+.site-nav nav { margin-left: -12px; margin-right: auto; min-width: 0; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  display: block; padding: 8px 12px; border-radius: 999px;
+  font-size: 14px; color: var(--muted); text-decoration: none; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.is-active { color: var(--plum); background: var(--surface); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 20px; border-radius: 999px;
+  font: 500 15px/1 var(--body); text-decoration: none; white-space: nowrap;
+  border: 1px solid transparent; cursor: pointer;
+}
+.btn-primary { background: var(--plum); color: #fff; }
+.btn-primary:hover { background: var(--plum-deep); }
+.btn-ghost { border-color: var(--border); color: var(--ink); background: var(--bg); }
+.btn-ghost:hover { border-color: var(--plum); color: var(--plum); }
+.btn-small { min-height: 38px; padding: 0 16px; font-size: 14px; }
+
+/* Layout */
+.page > main { padding-top: 56px; padding-bottom: 40px; }
+
+/* Profile panel */
+.profile {
+  position: sticky; top: 0; align-self: start;
+  height: 100vh; height: 100dvh; overflow-y: auto;
+  border-right: 1px solid var(--border);
+  padding: 40px;
+  display: flex; flex-direction: column;
+}
+.profile-photo {
+  width: 104px; height: 104px; border-radius: 16px; object-fit: cover;
+  background: var(--surface); flex: none;
+}
+.profile-name { font-size: 34px; font-weight: 600; margin-top: 44px; line-height: 1.05; letter-spacing: -0.03em; }
+.profile-role { color: var(--plum); font-weight: 500; margin: 8px 0 0; }
+.profile-pitch { color: var(--muted); margin: 18px 0 0; font-size: 17px; line-height: 1.5; max-width: 26ch; }
+.facts { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); display: grid; gap: 12px; }
+.facts li { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+.facts svg { flex: none; color: var(--muted); }
+.profile-foot { margin-top: auto; padding-top: 40px; }
+.socials { display: flex; gap: 4px; margin-left: -10px; }
+.socials a {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: grid; place-items: center; color: var(--muted);
+}
+.socials a:hover { color: var(--plum); background: var(--surface); }
+.profile-actions { display: flex; gap: 10px; margin-top: 12px; }
+.btn-dark { background: var(--ink); color: #fff; flex: 1; min-height: 52px; }
+.btn-dark:hover { background: var(--plum); }
+.btn-icon {
+  flex: none; width: 52px; min-height: 52px; padding: 0;
+  background: var(--surface); color: var(--ink);
+}
+.btn-icon:hover { background: var(--border); color: var(--plum); }
+
+/* Content */
+.content > section { scroll-margin-top: calc(var(--nav-h) + 24px); }
+.content > section + section { margin-top: 80px; padding-top: 80px; border-top: 1px solid var(--border); }
+.section-title { font-size: 30px; font-weight: 600; margin-bottom: 28px; line-height: 1.1; }
+.sub-title { font-size: 20px; font-weight: 600; margin: 48px 0 20px; }
+.lede { max-width: 62ch; }
+.prose p { max-width: 64ch; color: #3A3045; }
+.prose p:first-child { color: var(--ink); font-size: 19px; line-height: 1.5; }
+
+/* Hero */
+.hero { padding: 0 0 8px; }
+.hero h1 {
+  font-size: clamp(42px, 6.2vw, 76px);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  max-width: 11ch;
+}
+.hero p { font-size: 19px; line-height: 1.5; color: var(--muted); max-width: 46ch; margin: 28px 0 0; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+/* Tags */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags li {
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--surface); color: var(--plum);
+  font-size: 14px; font-weight: 500;
+}
+.about-skills { margin-top: 28px; }
+
+/* Work */
+.work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.project { display: flex; flex-direction: column; }
+.project-media {
+  aspect-ratio: 4 / 3; border-radius: 20px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.project-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.project-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.project h3 { font-size: 22px; font-weight: 600; }
+.project-year { font-size: 14px; color: var(--muted); }
+.project p { color: var(--muted); font-size: 15px; line-height: 1.6; margin: 10px 0 16px; }
+.project .tags { margin-top: auto; }
+.project .tags li { font-size: 13px; padding: 4px 12px; }
+.text-link { color: var(--plum); font-weight: 500; text-underline-offset: 4px; }
+.text-link:hover { color: var(--plum-deep); }
+.project .text-link { display: inline-block; margin-top: 16px; font-size: 15px; }
+
+/* Timeline */
+.timeline li {
+  display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px;
+  padding: 22px 0; border-top: 1px solid var(--border);
+}
+.timeline li:first-child { border-top: 0; padding-top: 0; }
+.timeline li:last-child { padding-bottom: 0; }
+.when { font-size: 14px; color: var(--muted); padding-top: 4px; }
+.timeline h3 { font-size: 19px; font-weight: 600; }
+.org { margin: 4px 0 0; font-size: 15px; }
+.org strong { font-weight: 500; color: var(--plum); }
+.org span { color: var(--muted); }
+.timeline .desc { margin: 10px 0 0; color: var(--muted); font-size: 15px; max-width: 58ch; }
+
+/* Simple lists (education, publications, languages) */
+.rows li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+  padding: 16px 0; border-top: 1px solid var(--border);
+}
+.rows li:first-child { border-top: 0; padding-top: 0; }
+.rows h3 { font-family: var(--body); font-size: 16px; font-weight: 500; letter-spacing: 0; }
+.rows p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.rows .meta { flex: none; font-size: 14px; color: var(--muted); text-align: right; }
+
+/* Recommendations */
+.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.quote {
+  margin: 0; padding: 24px; border-radius: 20px;
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 20px;
+}
+.quote blockquote { margin: 0; font-size: 15px; line-height: 1.65; color: #3A3045; }
+.quote figcaption { margin-top: auto; display: flex; align-items: center; gap: 12px; }
+.initials {
+  flex: none; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--surface); color: var(--plum);
+  font-size: 13px; font-weight: 600;
+}
+.quote cite { font-style: normal; font-weight: 500; display: block; line-height: 1.3; }
+.quote small { display: block; color: var(--muted); font-size: 13px; line-height: 1.4; margin-top: 2px; }
+
+/* Contact */
+.contact {
+  background: var(--surface); border-radius: 28px; padding: 48px;
+}
+.content > section.contact-section { border-top: 0; padding-top: 0; }
+.contact h2 { font-size: clamp(32px, 4.4vw, 48px); font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; max-width: 14ch; }
+.contact p { color: var(--muted); max-width: 48ch; margin: 18px 0 0; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.contact .btn-ghost { background: #fff; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--border); margin-top: 40px; }
+.site-footer .wrap { display: flex; justify-content: space-between; gap: 16px; padding-top: 24px; padding-bottom: 32px; font-size: 14px; color: var(--muted); }
+.site-footer a { color: var(--muted); text-underline-offset: 4px; }
+.site-footer a:hover { color: var(--plum); }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  :root { --side: 320px; }
+  .profile { padding: 32px; }
+  .wrap { padding: 0 32px; }
+}
+@media (max-width: 860px) {
+  .page { grid-template-columns: minmax(0, 1fr); grid-template-areas: "nav" "side" "main" "foot"; grid-template-rows: auto; }
+  .profile {
+    position: static; height: auto; overflow: visible;
+    border-right: 0; border-bottom: 1px solid var(--border);
+    padding: 32px 24px;
+  }
+  .profile-name { margin-top: 28px; }
+  .profile-foot { padding-top: 28px; }
+  .wrap { padding: 0 24px; }
+  .page > main { padding-top: 40px; }
+}
+@media (max-width: 640px) {
+  .site-nav .wrap { gap: 8px; }
+  .content > section + section { margin-top: 56px; padding-top: 56px; }
+  .timeline li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .when { padding-top: 0; }
+  .rows li { flex-direction: column; gap: 4px; }
+  .rows .meta { text-align: left; }
+  .contact { padding: 32px 24px; border-radius: 24px; }
+}
+</style>
+</head>
+<body id="top">
+
+<div class="page">
+
+<header class="site-nav">
+  <div class="wrap">
+    <nav aria-label="Sections">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#recommendations">Recommendations</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-ghost btn-small" href="#contact">Contact</a>
+  </div>
+</header>
+
+  <aside class="profile" aria-label="Profile">
+    <img class="profile-photo" src="assets/profile.jpg" alt="Portrait of Darshil Gohel" width="96" height="96">
+    <h2 class="profile-name">Darshil Gohel</h2>
+    <p class="profile-role">UX and product designer</p>
+    <p class="profile-pitch">Turning user research into products people love.</p>
+
+    <ul class="facts">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Gujarat, India
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
+        5+ years of experience
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg>
+        Works remotely
+      </li>
+    </ul>
+
+    <div class="profile-foot">
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/darshilgohel14/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 10.5v6"/><path d="M8 7.6v.1"/><path d="M12 16.5v-6"/><path d="M12 13a2.2 2.2 0 0 1 4.4 0v3.5"/></svg>
+        </a>
+        <a href="https://www.instagram.com/darshilgohel14/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8v.1"/></svg>
+        </a>
+      </div>
+      <div class="profile-actions">
+        <!-- TODO: add your CV at assets/Darshil-Gohel-CV.pdf -->
+        <a class="btn btn-dark" href="assets/Darshil-Gohel-CV.pdf" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7.5 11l4.5 4.5L16.5 11"/><path d="M5 19.5h14"/></svg>
+          Download CV
+        </a>
+        <!-- TODO: replace with your real email address -->
+        <a class="btn btn-icon" href="mailto:[your email]" aria-label="Email Darshil">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6.5L20.5 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="wrap">
+  <div class="content">
+
+    <section class="hero">
+      <h1>I design decisions, not just screens.</h1>
+      <p>Five years of turning complex problems into experiences that feel effortless, with a process grounded in research and human psychology.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">View work</a>
+        <a class="btn btn-ghost" href="#experience">View experience</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <div class="prose">
+        <p>I turn complex problems into elegant, intuitive experiences, because great design should feel effortless.</p>
+        <p>With 5+ years of experience in UX and product design, I specialize in bridging the gap between user needs and business goals. From discovery and wireframing to high-fidelity prototyping and cross-functional collaboration, I bring a full-cycle design perspective to every product I work on.</p>
+        <p>I ask "why" before I ask "how." Every design choice I make is backed by user insight, tested for clarity, and built to scale.</p>
+      </div>
+      <ul class="tags about-skills" aria-label="Key skills">
+        <li>UX research</li>
+        <li>UI/UX design</li>
+        <li>Mobile app design</li>
+        <li>Human-computer interaction</li>
+        <li>Product design</li>
+      </ul>
+    </section>
+
+    <section id="work">
+      <h2 class="section-title">Selected work</h2>
+      <div class="work-grid">
+
+        <article class="project">
+          <div class="project-media">
+            <img src="assets/koloril.jpg" alt="Koloril showing a curated color palette with color tokens and a font pairing" loading="lazy" width="708" height="531">
+          </div>
+          <div class="project-head">
+            <h3>Koloril</h3>
+            <span class="project-year">2026</span>
+          </div>
+          <p>Most color tools generate random swatches and call it a palette. Koloril is the opposite: every palette is curated by hand. Pick your industry, type, and mood, and get palettes that fit, each with matching font pairings. Preview them on a mobile UI, a website, and a dashboard, then export to CSS, Tailwind, Swift, or Figma.</p>
+          <ul class="tags">
+            <li>Design strategy</li>
+            <li>UX design</li>
+          </ul>
+          <a class="text-link" href="https://koloril.vercel.app" target="_blank" rel="noopener">Visit Koloril</a>
+        </article>
+
+        <article class="project">
+          <div class="project-media">
+            <img src="assets/streakfolio.jpg" alt="Streakfolio progress screen showing day 1 of 28 and the week 1 tasks" loading="lazy" width="408" height="306">
+          </div>
+          <div class="project-head">
+            <h3>Streakfolio</h3>
+            <span class="project-year">2026</span>
+          </div>
+          <p>A 28-day design challenge that guides designers from basic mobile screens to real product flows, SaaS interfaces, dashboards, and portfolio-ready projects. Every task is curated and ordered by difficulty, so each day is a small step toward becoming a better product designer.</p>
+          <ul class="tags">
+            <li>Figma</li>
+            <li>User experience</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">Experience</h2>
+      <!-- TODO: the descriptions below are short drafts. Replace with what you did in each role. -->
+      <ol class="timeline">
+        <li>
+          <div class="when">Apr 2026 to present</div>
+          <div>
+            <h3>Senior UX Designer</h3>
+            <p class="org"><strong>Fegmo</strong> <span>Freelance, remote (San Francisco Bay Area)</span></p>
+            <p class="desc">Designing the experience for an AI-powered SaaS platform for product video generation and asset creation.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Jan 2025 to Nov 2025</div>
+          <div>
+            <h3>Design Manager</h3>
+            <p class="org"><strong>Rivet Technology</strong> <span>Full-time, remote (Atlanta, Georgia)</span></p>
+            <p class="desc">Led product design for a SaaS platform, guiding designers and working closely with product and engineering.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">May 2023 to Dec 2024</div>
+          <div>
+            <h3>Senior User Experience Designer</h3>
+            <p class="org"><strong>Sadhrasya SoftTech</strong> <span>Full-time, remote (Vadodara, India)</span></p>
+            <p class="desc">Owned UX from flow diagrams and wireframes through to high-fidelity design and developer handoff.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Jul 2021 to Dec 2024</div>
+          <div>
+            <h3>Product and UX/UI Designer</h3>
+            <p class="org"><strong>Upwork</strong> <span>Freelance, remote</span></p>
+            <p class="desc">Designed mobile apps and websites for clients, from first brief to finished product.</p>
+          </div>
+        </li>
+        <li>
+          <div class="when">Jul 2021 to May 2023</div>
+          <div>
+            <h3>Product and UX/UI Designer</h3>
+            <p class="org"><strong>DeadMad Technologies</strong> <span>Freelance, remote (Ahmedabad, India)</span></p>
+            <p class="desc">Built the UI/UX architecture for client applications, with a focus on human-computer interaction.</p>
+          </div>
+        </li>
+      </ol>
+
+      <h3 class="sub-title">Education</h3>
+      <ul class="rows">
+        <li>
+          <div>
+            <h3>Bachelor of Engineering, Computer Engineering</h3>
+            <p>Silver Oak University, grade 8.70</p>
+          </div>
+          <span class="meta">2018 to 2022</span>
+        </li>
+      </ul>
+
+      <h3 class="sub-title">Publications</h3>
+      <ul class="rows">
+        <li>
+          <div>
+            <h3>Dream Through Hard Work (Deep Thoughts)</h3>
+            <p>Poetry, Notion Press</p>
+          </div>
+          <span class="meta">Dec 2020</span>
+        </li>
+        <li>
+          <div>
+            <h3>Dream Through Hard Work</h3>
+            <p>Poetry, Notion Press</p>
+          </div>
+          <span class="meta">Aug 2020</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <ul class="tags">
+        <li>User experience (UX)</li>
+        <li>UI/UX design</li>
+        <li>UX research</li>
+        <li>Product design</li>
+        <li>Mobile application design</li>
+        <li>Human-computer interaction</li>
+        <li>Interaction design</li>
+        <li>Design strategy</li>
+        <li>Wireframing</li>
+        <li>Flow diagrams</li>
+        <li>User personas</li>
+        <li>User stories</li>
+        <li>Visual design</li>
+        <li>Brand design</li>
+        <li>Web design</li>
+        <li>Figma</li>
+        <li>SaaS</li>
+      </ul>
+
+      <h3 class="sub-title">Languages</h3>
+      <ul class="rows">
+        <li>
+          <div><h3>Gujarati</h3></div>
+          <span class="meta">Native or bilingual</span>
+        </li>
+        <li>
+          <div><h3>English</h3></div>
+          <span class="meta">Professional working proficiency</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="recommendations">
+      <h2 class="section-title">Recommendations</h2>
+      <div class="quotes">
+
+        <figure class="quote">
+          <blockquote>His ability to translate complex requirements into intuitive and user-friendly designs has enhanced our products. Darshil has an exceptional eye for detail, ensuring that every interface is both aesthetically appealing and highly functional.</blockquote>
+          <figcaption>
+            <span class="initials" aria-hidden="true">KB</span>
+            <span><cite>Kartik Bhatia</cite><small>Software Developer, client for 1.5 years</small></span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <blockquote>What I appreciated most was the creative freedom he gave me. Whenever I felt stuck or unsure, he was always approachable and genuinely helpful. His guidance was clear, constructive, and supportive at every step.</blockquote>
+          <figcaption>
+            <span class="initials" aria-hidden="true">DG</span>
+            <span><cite>Dhwani Gohel</cite><small>UX/UI Designer, reported to Darshil</small></span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <blockquote>Darshil is a talented designer and took initiative in building the UI/UX architecture for our application. He is quick and his attention to detail and general UI creativity is great.</blockquote>
+          <figcaption>
+            <span class="initials" aria-hidden="true">AB</span>
+            <span><cite>Arpit Bajpai</cite><small>Technical Lead, client</small></span>
+          </figcaption>
+        </figure>
+
+        <figure class="quote">
+          <blockquote>Even though our engagement was short, he took the time to truly understand our needs and came up with creative solutions. I was particularly impressed by his collaborative approach.</blockquote>
+          <figcaption>
+            <span class="initials" aria-hidden="true">PD</span>
+            <span><cite>Pranjali Desai</cite><small>Entrepreneur, client</small></span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="contact">
+        <h2>Let's build something people love.</h2>
+        <p>If you're looking for a designer who can own the end-to-end experience, from fuzzy brief to polished product, let's connect.</p>
+        <div class="contact-actions">
+          <!-- TODO: replace both the href and the label with your real email address -->
+          <a class="btn btn-primary" href="mailto:[your email]">[your email]</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/darshilgohel14/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/darshilgohel14/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  </main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Darshil Gohel</span>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var sections = Object.keys(byId).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (!('IntersectionObserver' in window) || !sections.length) return;
+
+  var visible = {};
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+    var current = null;
+    sections.forEach(function (s) { if (visible[s.id] && !current) current = s.id; });
+    links.forEach(function (a) { a.classList.toggle('is-active', a === byId[current]); });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(function (s) { observer.observe(s); });
+})();
+</script>
+</body>
+</html>
